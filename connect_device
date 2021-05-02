@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+device_mac=$1
+
+# check
+check=$(bluetoothctl info $device_mac|grep Name)
+
+if [[ $? == 0 ]]; then
+	bluetoothctl trust $device_mac
+	bluetoothctl disconnect $device_mac
+	bluetoothctl connect $device_mac
+else
+	echo "No device found connected!!"
+fi
+
